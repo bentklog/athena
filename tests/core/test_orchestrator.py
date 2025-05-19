@@ -1,9 +1,11 @@
 """Tests for the Orchestrator service."""
 
+from typing import Any
+
 import pytest
-from datetime import datetime
-from typing import Dict, Any
-from athena.core.orchestrator import ServiceInterface, OrchestratorService
+
+from athena.core.orchestrator import OrchestratorService, ServiceInterface
+
 
 class MockService(ServiceInterface):
     """Mock service for testing."""
@@ -18,7 +20,7 @@ class MockService(ServiceInterface):
     def shutdown(self) -> None:
         self.shutdown_called = True
     
-    def get_status(self) -> Dict[str, Any]:
+    def get_status(self) -> dict[str, Any]:
         return {"status": "running" if self.initialized_called else "stopped"}
 
 @pytest.fixture

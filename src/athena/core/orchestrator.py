@@ -6,11 +6,10 @@ all Athena components, including request routing, session management, and
 operation scheduling.
 """
 
-from abc import ABC, abstractmethod
-from typing import Any, Dict, List, Optional
-from datetime import datetime
 import logging
-from pathlib import Path
+from abc import ABC, abstractmethod
+from datetime import datetime
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -28,7 +27,7 @@ class ServiceInterface(ABC):
         pass
     
     @abstractmethod
-    def get_status(self) -> Dict[str, Any]:
+    def get_status(self) -> dict[str, Any]:
         """Get the current status of the service."""
         pass
 
@@ -44,7 +43,7 @@ class OrchestratorService(ServiceInterface):
         session_context: Current session context
     """
     
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: dict[str, Any]):
         """Initialize the orchestrator service.
         
         Args:
@@ -54,8 +53,8 @@ class OrchestratorService(ServiceInterface):
             ValueError: If required configuration is missing
         """
         self.config = config
-        self.services: Dict[str, ServiceInterface] = {}
-        self.session_context: Dict[str, Any] = {}
+        self.services: dict[str, ServiceInterface] = {}
+        self.session_context: dict[str, Any] = {}
         self._validate_config()
     
     def _validate_config(self) -> None:
@@ -105,7 +104,7 @@ class OrchestratorService(ServiceInterface):
                 logger.error(f"Error shutting down service {service_name}: {e}")
         logger.info("Orchestrator service shut down complete")
     
-    def get_status(self) -> Dict[str, Any]:
+    def get_status(self) -> dict[str, Any]:
         """Get the current status of the orchestrator and all services.
         
         Returns:
@@ -140,7 +139,7 @@ class OrchestratorService(ServiceInterface):
         self.services[name] = service
         logger.info(f"Registered service: {name}")
     
-    def get_service(self, name: str) -> Optional[ServiceInterface]:
+    def get_service(self, name: str) -> ServiceInterface | None:
         """Get a registered service by name.
         
         Args:
@@ -151,7 +150,7 @@ class OrchestratorService(ServiceInterface):
         """
         return self.services.get(name)
     
-    def start_session(self, session_id: str, context: Dict[str, Any]) -> None:
+    def start_session(self, session_id: str, context: dict[str, Any]) -> None:
         """Start a new session with the given context.
         
         Args:
@@ -183,7 +182,7 @@ class OrchestratorService(ServiceInterface):
         del self.session_context[session_id]
         logger.info(f"Ended session: {session_id}")
     
-    def get_session_context(self, session_id: str) -> Dict[str, Any]:
+    def get_session_context(self, session_id: str) -> dict[str, Any]:
         """Get the context for an active session.
         
         Args:
