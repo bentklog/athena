@@ -1,0 +1,6 @@
+# documentation & rules
+documentation/
+
+# python
+__pycache__
+*.pyc
