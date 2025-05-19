@@ -23,7 +23,7 @@ jobs:
         cache: 'poetry'
 
     - name: Install Poetry
-      uses: poetry-io/poetry-action@1.7.0
+      uses: snok/install-poetry@v1
       with:
         version: 1.7.1
         virtualenvs-create: true
