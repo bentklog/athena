@@ -56,6 +56,3 @@ logs/
 # Distribution
 dist/
 build/
-
-# pyproject.toml
-pyproject.toml
